@@ -1,0 +1,6 @@
+[package]
+name = "Emit"
+version = "0.1.0"
+authors = ["marek counts <marek.counts@outlook.com>"]
+
+[dependencies]
