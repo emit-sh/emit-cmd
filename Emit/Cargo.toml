@@ -13,3 +13,7 @@ path = "src/bin/main.rs"
 
 [dependencies]
 clap = "~2.32"
+hyper = "0.12"
+http = "0.1.7"
+futures = "0.1.21"
+reqwest = "0.8.6"
