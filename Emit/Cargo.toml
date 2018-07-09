@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["marek counts <marek.counts@outlook.com>"]
 
 [lib]
-name = "emitLib"
+name = "emit_lib"
 path = "src/lib.rs"
 
 [[bin]]
