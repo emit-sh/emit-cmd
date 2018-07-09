@@ -3,4 +3,13 @@ name = "Emit"
 version = "0.1.0"
 authors = ["marek counts <marek.counts@outlook.com>"]
 
+[lib]
+name = "emitLib"
+path = "src/lib.rs"
+
+[[bin]]
+name = "emit"
+path = "src/bin/main.rs"
+
 [dependencies]
+clap = "~2.32"
