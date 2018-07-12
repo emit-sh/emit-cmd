@@ -2,9 +2,6 @@ extern crate clap;
 extern crate reqwest;
 extern crate futures;
 
-use std::io::{self, Write};
-use std::io::prelude::*;
-use std::fs::File;
 use clap::{App, Arg, SubCommand};
 
 fn main() {
@@ -38,17 +35,13 @@ fn main() {
         .get_matches();
 
         if let Some(i) = matches.value_of("input") {
-            println!("File to be saved: {}", i);
 
 
             if let Some(e) = matches.value_of("email") {
                 println!("Email address to send to: {}", e);
             }
 
-            let mut f = File::open(i).unwrap();
-            let mut contents = String::new();
-            f.read_to_string(&mut contents).unwrap();
-
+   
             let form = reqwest::multipart::Form::new()
                 .file("file", i).unwrap();
 
@@ -57,6 +50,7 @@ fn main() {
                 .multipart(form)
                 .send().unwrap();
 
-            println!("Response: {}", response.text().unwrap());
+            println!("{}", response.text().unwrap());
+            
         }
 }
