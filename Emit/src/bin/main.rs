@@ -2,6 +2,12 @@ extern crate clap;
 extern crate reqwest;
 extern crate futures;
 
+use reqwest::header::Headers;
+
+
+#[macro_use] extern crate hyper;
+header! { (XEmitEmail, "x-emit-email") => [String] }
+
 use clap::{App, Arg, SubCommand};
 
 fn main() {
@@ -16,8 +22,9 @@ fn main() {
                 .index(1),
         )
         .arg(
-            Arg::with_name("email")
+            Arg::with_name("--email")
                 .required(false)
+                .short("-e")
                 .help("Ends the emited link to the above email")
                 .index(2),
         )
@@ -36,17 +43,21 @@ fn main() {
 
         if let Some(i) = matches.value_of("input") {
 
+            //let mut email_header : Header;
+            let mut headers = Headers::new();
 
-            if let Some(e) = matches.value_of("email") {
+
+            if let Some(e) = matches.value_of("--email") {
+                headers.set(XEmitEmail(e.to_owned()));
                 println!("Email address to send to: {}", e);
             }
 
-   
             let form = reqwest::multipart::Form::new()
                 .file("file", i).unwrap();
 
             let mut response = reqwest::Client::new()
                 .post("http://emit.sh")
+                .headers(headers)
                 .multipart(form)
                 .send().unwrap();
 
